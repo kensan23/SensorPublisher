@@ -1,12 +1,21 @@
-import boto3
 import json
 import os
-from dotenv import load_dotenv
-load_dotenv()
+# from dotenv import load_dotenv
+# load_dotenv()
+from sensordata import sensor_data
 
-sns = boto3.client('sns')
+data = sensor_data()
+try:
+    while True:
+        print(data.get_data("testRoom"))
+except KeyboardInterrupt:
+    print('interrupted!')
 
-response = sns.publish(
-    TopicArn='',   
-    Message='Hello world',   
-)
+
+
+# sns = boto3.client('sns')
+
+# response = sns.publish(
+#     TopicArn='',   
+#     Message='Hello world',   
+# )

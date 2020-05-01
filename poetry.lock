@@ -1,4 +1,31 @@
 [[package]]
+category = "main"
+description = "In-process task scheduler with Cron-like capabilities"
+name = "apscheduler"
+optional = false
+python-versions = "*"
+version = "3.6.3"
+
+[package.dependencies]
+pytz = "*"
+setuptools = ">=0.7"
+six = ">=1.4.0"
+tzlocal = ">=1.2"
+
+[package.extras]
+asyncio = ["trollius"]
+doc = ["sphinx", "sphinx-rtd-theme"]
+gevent = ["gevent"]
+mongodb = ["pymongo (>=2.8)"]
+redis = ["redis (>=3.0)"]
+rethinkdb = ["rethinkdb (>=2.4.0)"]
+sqlalchemy = ["sqlalchemy (>=0.8)"]
+testing = ["pytest", "pytest-cov", "pytest-tornado5", "mock", "pytest-asyncio (<0.6)", "pytest-asyncio"]
+tornado = ["tornado (>=4.3)"]
+twisted = ["twisted"]
+zookeeper = ["kazoo"]
+
+[[package]]
 category = "dev"
 description = "Atomic file writes."
 name = "atomicwrites"
@@ -132,15 +159,16 @@ pyparsing = ">=2.0.2"
 six = "*"
 
 [[package]]
-category = "main"
-description = "MQTT version 3.1.1 client class"
-name = "paho-mqtt"
+category = "dev"
+description = "Object-oriented filesystem paths"
+marker = "python_version < \"3.6\""
+name = "pathlib2"
 optional = false
 python-versions = "*"
-version = "1.5.0"
+version = "2.3.5"
 
-[package.extras]
-proxy = ["pysocks"]
+[package.dependencies]
+six = "*"
 
 [[package]]
 category = "dev"
@@ -211,6 +239,10 @@ version = ">=0.12"
 python = ">=2.8"
 version = ">=4.0.0"
 
+[package.dependencies.pathlib2]
+python = "<3.6"
+version = ">=2.2.0"
+
 [package.extras]
 testing = ["argcomplete", "hypothesis (>=3.56)", "nose", "requests", "mock"]
 
@@ -238,6 +270,14 @@ cli = ["click (>=5.0)"]
 
 [[package]]
 category = "main"
+description = "World timezone definitions, modern and historical"
+name = "pytz"
+optional = false
+python-versions = "*"
+version = "2020.1"
+
+[[package]]
+category = "main"
 description = "An Amazon S3 Transfer Manager"
 name = "s3transfer"
 optional = false
@@ -257,11 +297,14 @@ version = "1.14.0"
 
 [[package]]
 category = "main"
-description = "Python bindings for Linux SMBus access through i2c-dev"
-name = "smbus"
+description = "tzinfo object for the local timezone"
+name = "tzlocal"
 optional = false
 python-versions = "*"
-version = "1.1.post2"
+version = "2.0.0"
+
+[package.dependencies]
+pytz = "*"
 
 [[package]]
 category = "main"
@@ -291,18 +334,22 @@ description = "Backport of pathlib-compatible object wrapper for zip files"
 marker = "python_version < \"3.8\""
 name = "zipp"
 optional = false
-python-versions = ">=3.6"
-version = "3.1.0"
+python-versions = ">=2.7"
+version = "1.2.0"
 
 [package.extras]
 docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
-testing = ["jaraco.itertools", "func-timeout"]
+testing = ["pathlib2", "unittest2", "jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "6ebca8f08d56e03bbf23a214f0920230b37fee4041bc8aa0c34101e92532a39c"
-python-versions = "^3.6"
+content-hash = "7efbad63df5fc71e2151e01ab6b536da08fcd062ee559261fd14ce3bf948edac"
+python-versions = "^3.5"
 
 [metadata.files]
+apscheduler = [
+    {file = "APScheduler-3.6.3-py2.py3-none-any.whl", hash = "sha256:e8b1ecdb4c7cb2818913f766d5898183c7cb8936680710a4d3a966e02262e526"},
+    {file = "APScheduler-3.6.3.tar.gz", hash = "sha256:3bb5229eed6fbbdafc13ce962712ae66e175aa214c69bed35a06bffcf0c5e244"},
+]
 atomicwrites = [
     {file = "atomicwrites-1.3.0-py2.py3-none-any.whl", hash = "sha256:03472c30eb2c5d1ba9227e4c2ca66ab8287fbfbbda3888aa93dc2e28fc6811b4"},
     {file = "atomicwrites-1.3.0.tar.gz", hash = "sha256:75a9445bac02d8d058d5e1fe689654ba5a6556a1dfd8ce6ec55a0ed79866cfa6"},
@@ -352,8 +399,9 @@ packaging = [
     {file = "packaging-20.3-py2.py3-none-any.whl", hash = "sha256:82f77b9bee21c1bafbf35a84905d604d5d1223801d639cf3ed140bd651c08752"},
     {file = "packaging-20.3.tar.gz", hash = "sha256:3c292b474fda1671ec57d46d739d072bfd495a4f51ad01a055121d81e952b7a3"},
 ]
-paho-mqtt = [
-    {file = "paho-mqtt-1.5.0.tar.gz", hash = "sha256:e3d286198baaea195c8b3bc221941d25a3ab0e1507fc1779bdb7473806394be4"},
+pathlib2 = [
+    {file = "pathlib2-2.3.5-py2.py3-none-any.whl", hash = "sha256:0ec8205a157c80d7acc301c0b18fbd5d44fe655968f5d947b6ecef5290fc35db"},
+    {file = "pathlib2-2.3.5.tar.gz", hash = "sha256:6cd9a47b597b37cc57de1c05e56fb1a1c9cc9fab04fe78c29acd090418529868"},
 ]
 pluggy = [
     {file = "pluggy-0.13.1-py2.py3-none-any.whl", hash = "sha256:966c145cd83c96502c3c3868f50408687b38434af77734af1e9ca461a4081d2d"},
@@ -383,6 +431,10 @@ python-dotenv = [
     {file = "python-dotenv-0.13.0.tar.gz", hash = "sha256:3b9909bc96b0edc6b01586e1eed05e71174ef4e04c71da5786370cebea53ad74"},
     {file = "python_dotenv-0.13.0-py2.py3-none-any.whl", hash = "sha256:25c0ff1a3e12f4bde8d592cc254ab075cfe734fc5dd989036716fd17ee7e5ec7"},
 ]
+pytz = [
+    {file = "pytz-2020.1-py2.py3-none-any.whl", hash = "sha256:a494d53b6d39c3c6e44c3bec237336e14305e4f29bbf800b599253057fbb79ed"},
+    {file = "pytz-2020.1.tar.gz", hash = "sha256:c35965d010ce31b23eeb663ed3cc8c906275d6be1a34393a1d73a41febf4a048"},
+]
 s3transfer = [
     {file = "s3transfer-0.3.3-py2.py3-none-any.whl", hash = "sha256:2482b4259524933a022d59da830f51bd746db62f047d6eb213f2f8855dcb8a13"},
     {file = "s3transfer-0.3.3.tar.gz", hash = "sha256:921a37e2aefc64145e7b73d50c71bb4f26f46e4c9f414dc648c6245ff92cf7db"},
@@ -391,11 +443,9 @@ six = [
     {file = "six-1.14.0-py2.py3-none-any.whl", hash = "sha256:8f3cd2e254d8f793e7f3d6d9df77b92252b52637291d0f0da013c76ea2724b6c"},
     {file = "six-1.14.0.tar.gz", hash = "sha256:236bdbdce46e6e6a3d61a337c0f8b763ca1e8717c03b369e87a7ec7ce1319c0a"},
 ]
-smbus = [
-    {file = "smbus-1.1.post2-cp27-cp27mu-linux_armv7l.whl", hash = "sha256:529f9effc383b6381534d1d845eaf1078bdd2d4e625c945b23cf274d5cf1c306"},
-    {file = "smbus-1.1.post2-cp34-cp34m-linux_armv7l.whl", hash = "sha256:39923448455a41c6bbe823de62b191103dd711917056362d9e4b1d2c6ec0f06d"},
-    {file = "smbus-1.1.post2-cp35-cp35m-linux_armv7l.whl", hash = "sha256:b467235734ae5c147c4ec0eff1afb9dba189d9d3cc086ed7e0d3dbf0ae485230"},
-    {file = "smbus-1.1.post2.tar.gz", hash = "sha256:f96d345e0aa10053a8a4917634f1dc37ba1f656fa5cace7629b71777e90855c6"},
+tzlocal = [
+    {file = "tzlocal-2.0.0-py2.py3-none-any.whl", hash = "sha256:11c9f16e0a633b4b60e1eede97d8a46340d042e67b670b290ca526576e039048"},
+    {file = "tzlocal-2.0.0.tar.gz", hash = "sha256:949b9dd5ba4be17190a80c0268167d7e6c92c62b30026cf9764caf3e308e5590"},
 ]
 urllib3 = [
     {file = "urllib3-1.25.9-py2.py3-none-any.whl", hash = "sha256:88206b0eb87e6d677d424843ac5209e3fb9d0190d0ee169599165ec25e9d9115"},
@@ -406,6 +456,6 @@ wcwidth = [
     {file = "wcwidth-0.1.9.tar.gz", hash = "sha256:ee73862862a156bf77ff92b09034fc4825dd3af9cf81bc5b360668d425f3c5f1"},
 ]
 zipp = [
-    {file = "zipp-3.1.0-py3-none-any.whl", hash = "sha256:aa36550ff0c0b7ef7fa639055d797116ee891440eac1a56f378e2d3179e0320b"},
-    {file = "zipp-3.1.0.tar.gz", hash = "sha256:c599e4d75c98f6798c509911d08a22e6c021d074469042177c8c86fb92eefd96"},
+    {file = "zipp-1.2.0-py2.py3-none-any.whl", hash = "sha256:e0d9e63797e483a30d27e09fffd308c59a700d365ec34e93cc100844168bf921"},
+    {file = "zipp-1.2.0.tar.gz", hash = "sha256:c70410551488251b0fee67b460fb9a536af8d6f9f008ad10ac51f615b6a521b1"},
 ]

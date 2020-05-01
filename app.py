@@ -21,17 +21,14 @@ class sensor_data:
         else:
             start_time = time.time()
             curr_time = time.time()
-            burn_in_time = 10
+            burn_in_time = 300
             burn_in_data = []
             try:
-                print('Collecting gas resistance burn-in data for 5 mins\n')
                 while curr_time - start_time < burn_in_time:
-                    print('hello')
                     curr_time = time.time()
                     if self.sensor.get_sensor_data() and self.sensor.data.heat_stable:
                         gas = self.sensor.data.gas_resistance
                         burn_in_data.append(gas)
-                        print('Gas: {0} Ohms'.format(gas))
                         time.sleep(1)
 
                 self.gas_baseline = sum(burn_in_data[-50:]) / 50.0

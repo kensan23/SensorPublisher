@@ -5,12 +5,11 @@ description = ""
 authors = ["kensan <9150185+kensan23@users.noreply.github.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.6"
-paho-mqtt = "^1.5.0"
+python = "^3.5"
 boto3 = "^1.12.41"
 python-dotenv = "^0.13.0"
 bme680 = "^1.0.5"
-smbus = "^1.1.post2"
+apscheduler = "^3.6.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^4.6"

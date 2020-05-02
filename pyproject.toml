@@ -10,6 +10,7 @@ boto3 = "^1.12.41"
 python-dotenv = "^0.13.0"
 bme680 = "^1.0.5"
 apscheduler = "^3.6.3"
+smbus = "^1.1.post2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^4.6"

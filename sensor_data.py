@@ -1,6 +1,7 @@
 import bme680
 import datetime
 import time
+import logging
 class sensor_data:
     def __init__(self, gas_baseline = 0, hum_baseline = 0):
         try:
@@ -23,6 +24,7 @@ class sensor_data:
             curr_time = time.time()
             burn_in_time = 300
             burn_in_data = []
+            logging.info('Starting burn in', extra={'burnintime': burn_in_time})
             try:
                 while curr_time - start_time < burn_in_time:
                     curr_time = time.time()
@@ -36,7 +38,7 @@ class sensor_data:
 
                 self.hum_weighting = 0.25
             except:
-                print('error with burnin')
+                logging.exception('error with burnin')
 
     def get_air_quality(self, gas, hum):
         gas_offset = self.gas_baseline - gas
@@ -57,10 +59,9 @@ class sensor_data:
         air_quality_score = hum_score + gas_score
 
         return air_quality_score
-    def get_data(self, locationname):
+    def get_data(self):
         if self.sensor.get_sensor_data() and self.sensor.data.heat_stable:
             return  {
-                    "location_name" : locationname,
                     "temperature" : '{0:.2f}C'.format(self.sensor.data.temperature),
                     "humidity" : '{0:.2f}'.format(self.sensor.data.humidity),
                     "pressure" : '{0:.2f} hPa'.format(self.sensor.data.pressure),

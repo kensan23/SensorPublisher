@@ -10,4 +10,5 @@ services:
         - ~/.aws:/root/.aws:ro
     privileged: true
     environment: 
-      - AWSSNSTOPICARN=snsTopicArn
+      - LOGLEVEL=INFO
+      - AWSSNSTOPICARN=arn:aws:sns:us-west-2:541950370579:RoomSensorData

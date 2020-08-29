@@ -22,7 +22,7 @@ class sensor_data:
         else:
             start_time = time.time()
             curr_time = time.time()
-            burn_in_time = 300
+            burn_in_time = 5
             burn_in_data = []
             logging.info('Starting burn in', extra={'burnintime': burn_in_time})
             try:

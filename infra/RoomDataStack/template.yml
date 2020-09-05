@@ -15,11 +15,34 @@ Transform:
 # Resources declares the AWS resources that you want to include in the stack
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
 Resources:
+  RoomDataTable:
+    Type: AWS::DynamoDB::Table
+    Properties: 
+      TableName: RoomData
+      AttributeDefinitions: 
+        - AttributeName: roomid
+          AttributeType: S
+        - AttributeName: datetimeunix
+          AttributeType: S
+      KeySchema: 
+        - AttributeName: roomid
+          KeyType: HASH
+        - AttributeName: datetime
+          KeyType: RANGE
+      ProvisionedThroughput: 
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
   # This is an SNS Topic with all default configuration properties. To learn more about the available options, see
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-topic.html
-  SimpleTopic:
+  RoomDataTopic:
     Type: AWS::SNS::Topic
-  
+  RoomDataDbARN:  
+    Type: AWS::SSM::Parameter
+    Properties: 
+      Type: String
+      Name: /Roomdata/RoomDataTopicArn
+      Value:
+        Ref: RoomDataTopic
   # This is the Lambda function definition associated with the source code: sns-payload-logger.js. For all available properties, see
   # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
   SNSPayloadLogger:
@@ -34,9 +57,13 @@ Resources:
         SNSTopicEvent:
           Type: SNS
           Properties:
-            Topic: !Ref SimpleTopic
+            Topic: !Ref RoomDataTopic
       MemorySize: 128
       Timeout: 100
+      Environment:
+        Variables:
+            DYNAMO_DB_NAME: !Ref RoomDataTable
       Policies:
         # Give Lambda basic execution Permission to the helloFromLambda
         - AWSLambdaBasicExecutionRole
+    DependsOn: RoomDataDbARN

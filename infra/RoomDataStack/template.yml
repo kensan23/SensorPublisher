@@ -23,11 +23,11 @@ Resources:
         - AttributeName: roomid
           AttributeType: S
         - AttributeName: datetimeunix
-          AttributeType: S
+          AttributeType: N
       KeySchema: 
         - AttributeName: roomid
           KeyType: HASH
-        - AttributeName: datetime
+        - AttributeName: datetimeunix
           KeyType: RANGE
       ProvisionedThroughput: 
         ReadCapacityUnits: 5
@@ -66,4 +66,5 @@ Resources:
       Policies:
         # Give Lambda basic execution Permission to the helloFromLambda
         - AWSLambdaBasicExecutionRole
+        - AmazonDynamoDBFullAccess
     DependsOn: RoomDataDbARN

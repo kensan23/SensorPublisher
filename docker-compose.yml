@@ -11,4 +11,3 @@ services:
     privileged: true
     environment: 
       - LOGLEVEL=INFO
-      - AWSSNSTOPICARN=arn:aws:sns:us-west-2:541950370579:RoomSensorData

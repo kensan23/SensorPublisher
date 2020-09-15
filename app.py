@@ -25,15 +25,15 @@ def my_listener(event):
 @retry(wait=wait_random_exponential(multiplier=1, max=60), stop=stop_after_attempt(2))
 def post_data(sensordata):
     ssm = boto3.client('ssm')
-    arn = ssm.get_parameter(Name='/Roomdata/RoomDataTopicArn')["Parameter"]["ARN"]
+    arn = ssm.get_parameter(Name='/Roomdata/RoomDataTopicArn')["Parameter"]["Value"]
     sns = boto3.client('sns')
     publish_data = data.get_data()
     publish_data.update({'locationId' : LOCATION})
+    logging.info(json.dumps(publish_data))
     response = sns.publish(
         TopicArn=arn,   
-        Message=json.dumps(publish_data),   
+        Message=json.dumps(publish_data)
     )
-    logging.info(json.dumps(publish_data))
     _COUNTS['exception_count'] = 0
 
 if __name__ == '__main__':

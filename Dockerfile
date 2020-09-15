@@ -16,6 +16,8 @@ WORKDIR /app
 RUN pip install "poetry==$POETRY_VERSION"
 
 WORKDIR /app
+COPY poetry.lock pyproject.toml /app/
+
 ADD . /app
 
 # Switching to a non-root user, please refer to https://aka.ms/vscode-docker-python-user-rights

@@ -1,7 +1,8 @@
 import bme680
-import datetime
 import time
 import logging
+from datetime import datetime, timezone 
+
 class sensor_data:
     def __init__(self, gas_baseline = 0, hum_baseline = 0):
         try:
@@ -22,7 +23,7 @@ class sensor_data:
         else:
             start_time = time.time()
             curr_time = time.time()
-            burn_in_time = 5
+            burn_in_time = 300
             burn_in_data = []
             logging.info('Starting burn in', extra={'burnintime': burn_in_time})
             try:
@@ -65,7 +66,7 @@ class sensor_data:
                     "temperature" : '{0:.2f}C'.format(self.sensor.data.temperature),
                     "humidity" : '{0:.2f}'.format(self.sensor.data.humidity),
                     "pressure" : '{0:.2f} hPa'.format(self.sensor.data.pressure),
-                    "datetime_utc" : datetime.datetime.utcnow().isoformat(),
+                    "datetime_utc" : str(datetime.now(timezone.utc)),
                     "gas_resistance" : '{0} Ohms'.format(self.sensor.data.gas_resistance),
                     "air_quality" : '{0}'.format(self.get_air_quality(self.sensor.data.gas_resistance, self.sensor.data.humidity))
                     }

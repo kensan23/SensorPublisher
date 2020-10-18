@@ -10,4 +10,4 @@ services:
         - ~/.aws:/root/.aws:ro
     privileged: true
     environment: 
-      - LOGLEVEL=INFO
+      - LOGLEVEL=WARNING
